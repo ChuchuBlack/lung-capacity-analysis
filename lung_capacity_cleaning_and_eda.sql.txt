@@ -1,0 +1,101 @@
+CREATE TABLE lungcapdata2 (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  LungCap DOUBLE,
+  Age INT,
+  Height DOUBLE,
+  Smoke VARCHAR(3),
+  Gender VARCHAR(6),
+  Caesarean VARCHAR(3)
+);
+
+
+INSERT INTO lungcapdata2 (LungCap, Age, Height, Smoke, Gender, Caesarean)
+SELECT LungCap, Age, Height, Smoke, Gender, Caesarean
+FROM lungcapdata;
+
+
+SELECT 
+    LungCap, Age, Height, Smoke, Gender, Caesarean,
+    COUNT(*) AS duplicate_count
+FROM lungcapdata2
+GROUP BY LungCap, Age, Height, Smoke, Gender, Caesarean
+HAVING COUNT(*) > 1;
+
+
+SELECT * 
+FROM lungcapdata2
+WHERE LungCap IS NULL 
+   OR Age IS NULL 
+   OR Height IS NULL 
+   OR Smoke IS NULL 
+   OR Gender IS NULL 
+   OR Caesarean IS NULL;
+   
+DELETE FROM lungcapdata2
+WHERE LungCap IS NULL 
+  AND Age IS NULL 
+  AND Height IS NULL 
+  AND Smoke IS NULL 
+  AND Gender IS NULL 
+  AND Caesarean IS NULL;
+  
+SELECT DISTINCT Smoke FROM lungcapdata2;
+SELECT DISTINCT Gender FROM lungcapdata2;
+SELECT DISTINCT Caesarean FROM lungcapdata2;
+
+
+
+-- START OF EXPLORATORY DATA ANALYSIS
+
+SELECT Smoke, AVG(LungCap) AS avg_lungcap
+FROM lungcapdata2
+GROUP BY Smoke;
+
+SELECT 
+  CASE 
+    WHEN Age BETWEEN 3 AND 7 THEN '3-7'
+    WHEN Age BETWEEN 8 AND 12 THEN '8-12'
+    WHEN Age BETWEEN 13 AND 16 THEN '13-16'
+    ELSE '17-19'
+  END AS age_group,
+  AVG(LungCap) AS avg_lungcap
+FROM lungcapdata2
+GROUP BY age_group
+ORDER BY age_group;
+
+SELECT Caesarean, AVG(LungCap) AS avg_lungcap
+FROM lungcapdata2
+GROUP BY Caesarean;
+
+SELECT Smoke, Gender, AVG(LungCap) AS avg_lungcap
+FROM lungcapdata2
+GROUP BY Smoke, Gender;
+
+SELECT Age, AVG(LungCap) AS avg_lungcap
+FROM lungcapdata2
+GROUP BY Age
+ORDER BY Age;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
