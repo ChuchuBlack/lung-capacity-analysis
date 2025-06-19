@@ -33,7 +33,7 @@ The main goal was to clean the data** and perform exploratory data analysis to u
 ## Key Findings
 
 - Children who smoke tend to have lower lung capacity
-- Older and taller children typically have **higher lung capacity
+- Older and taller children typically have higher lung capacity
 - No major differences based on gender or caesarean status in this sample
 
 
